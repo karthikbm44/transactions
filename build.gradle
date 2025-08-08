@@ -1,0 +1,65 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.5.4'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.bank.onebank'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {// Spring Boot Starters
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+	// Database
+	runtimeOnly 'com.mysql:mysql-connector-j'
+
+	// PDF Libraries (updated for security)
+	implementation 'com.itextpdf:itextpdf:5.5.13.4'
+	implementation 'org.apache.pdfbox:pdfbox:2.0.29'
+
+	// OpenAPI Documentation (updated)
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0'  // Updated from 2.0.4
+
+	// Lombok
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	// Testing
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+// Security hardening for Lombok
+bootJar {
+	excludes = ['**/lombok/*']
+}
+
+// Java 18 compatibility
+tasks.withType(JavaCompile).configureEach {
+	options.compilerArgs += ['--enable-preview']
+}
+
+tasks.withType(Test).configureEach {
+	jvmArgs += ['--enable-preview']
+}
+
+tasks.withType(JavaExec).configureEach {
+	jvmArgs += ['--enable-preview']
+}
