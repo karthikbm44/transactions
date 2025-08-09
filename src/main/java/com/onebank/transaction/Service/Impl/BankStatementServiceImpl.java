@@ -256,7 +256,7 @@ public class BankStatementServiceImpl implements BankStatementService {
                 .recipient(userDetailsDto.getEmailId())//this mail id is hardcoded u need to create an endpoint to get all the details of the customer
                 .subject("Bank Statement")
                 .messageBody("Dear Customer,\n\nTo open the statement use the first 4 letter of your name in capital with the last 4 digits of you account number." +
-                        "\nFor example:-\nAccount Holder Name: Abcdefgh Ijk Lmn \nAccount Number: 1234567890 \nYour password will be ABCD7890." +
+                        "\nFor example:-\nAccount Holder Name: Karthik B M \nAccount Number: 1234567890 \nYour password will be KART7890." +
                         "\n\nPlease find your requested bank statement attached!\n\nSincerely,\nOne Bank Team")
                 .attachment(fileName)
                 .build();
